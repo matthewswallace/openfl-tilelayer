@@ -19,21 +19,31 @@ using StringTools;
  */
 class TilesheetEx extends Tilesheet
 {
-	public var scale:Float;
 	var defs:Array<String>;
 	var sizes:Array<Rectangle>;
-	var anims:Hash<Array<Int>>;
+
+	#if haxe3
+		var anims:Map<String,Array<Int>>;
+	#else
+		var anims:Hash<Array<Int>>;
+	#end
+
 	#if flash
 	var bmps:Array<BitmapData>;
 	#end
 
-	public function new(img:BitmapData, textureScale:Float = 1.0)
+	public function new(img:BitmapData)
 	{
 		super(img);
-		
-		scale = 1/textureScale;
+
 		defs = new Array<String>();
-		anims = new Hash<Array<Int>>();
+
+		#if haxe3
+			anims = new Map < String, Array<Int> > ();
+		#else
+			anims = new Hash <Array<Int> > ();
+		#end
+
 		sizes = new Array<Rectangle>();
 		#if flash
 		bmps = new Array<BitmapData>();
@@ -52,15 +62,6 @@ class TilesheetEx extends Tilesheet
 	{
 		defs.push(name);
 		sizes.push(size);
-		if (scale != 1.0)
-		{
-			rect.x /= scale;
-			rect.y /= scale;
-			rect.width /= scale;
-			rect.height /= scale;
-			center.x /= scale;
-			center.y /= scale;
-		}
 		addTileRect(rect, center);
 	}
 	#end
@@ -145,5 +146,3 @@ class TilesheetEx extends Tilesheet
 		return p;
 	}
 }
-
-

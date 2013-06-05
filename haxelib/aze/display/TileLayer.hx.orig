@@ -1,5 +1,6 @@
 package aze.display;
 
+<<<<<<< HEAD
 import browser.geom.Point;
 import haxe.Public;
 import flash.display.Bitmap;
@@ -11,6 +12,21 @@ import flash.display.Sprite;
 import flash.geom.Matrix;
 import flash.geom.Rectangle;
 import flash.Lib;
+=======
+import flash.geom.Point;
+#if !haxe3
+	import haxe.Public;
+#end
+import nme.display.Bitmap;
+import nme.display.BitmapData;
+import nme.display.BlendMode;
+import nme.display.DisplayObject;
+import nme.display.Graphics;
+import nme.display.Sprite;
+import nme.geom.Matrix;
+import nme.geom.Rectangle;
+import nme.Lib;
+>>>>>>> faeec59fbec874fd156305e7f528b04f66ff4a18
 
 /**
  * A little wrapper of NME's Tilesheet rendering (for native platform)
