@@ -1,7 +1,9 @@
 package aze.display;
 
 import browser.geom.Point;
-import haxe.Public;
+#if !haxe3
+	import haxe.Public;
+#end
 import nme.display.Bitmap;
 import nme.display.BitmapData;
 import nme.display.BlendMode;
@@ -80,14 +82,14 @@ class TileLayer extends TileGroup
 		gx += group.x;
 		gy += group.y;
 		#end
-		
+
 		var n = group.numChildren;
 		for(i in 0...n)
 		{
 			var child = group.children[i];
 			if (child.animated) child.step(elapsed);
 
-			#if flash
+			#if (flash||js)
 			var group:TileGroup = Std.is(child, TileGroup) ? cast child : null;
 			#else
 			if (!child.visible) 
@@ -121,10 +123,10 @@ class TileLayer extends TileGroup
 				#else
 				if (sprite.alpha <= 0.0) continue;
 				list[index+2] = sprite.indice;
-				
+
 				if (sprite.offset != null) 
 				{
-					var off:Point = sprite.offset;
+					var off:Point = sprite.offset;					
 					if (offsetTransform > 0) {
 						var t = sprite.transform;
 						list[index] = sprite.x - off.x * t[0] - off.y * t[1] + gx;
@@ -150,7 +152,7 @@ class TileLayer extends TileGroup
 						list[index+offsetTransform+3] = t[3];
 					}
 				}
-				
+
 				if (offsetRGB > 0) {
 					list[index+offsetRGB] = sprite.r;
 					list[index+offsetRGB+1] = sprite.g;
@@ -170,7 +172,11 @@ class TileLayer extends TileGroup
 /**
  * @private base tile type
  */
-class TileBase
+#if haxe3
+	class TileBase
+#else
+	class TileBase implements Public
+#end
 {
 	public var layer:TileLayer;
 	public var parent:TileGroup;
@@ -179,24 +185,24 @@ class TileBase
 	public var animated:Bool;
 	public var visible:Bool;
 
-	public function new(layer:TileLayer)
+	function new(layer:TileLayer)
 	{
 		this.layer = layer;
 		x = y = 0.0;
 		visible = true;
 	}
 
-	public function init(layer:TileLayer):Void
+	function init(layer:TileLayer):Void
 	{
 		this.layer = layer;
 	}
 
-	public function step(elapsed:Int)
+	function step(elapsed:Int)
 	{
 	}
 
 	#if flash
-	public function getView():DisplayObject { return null; }
+	function getView():DisplayObject { return null; }
 	#end
 }
 
@@ -204,27 +210,39 @@ class TileBase
 /**
  * @private render buffer
  */
-class DrawList implements Public
+#if haxe3
+	class DrawList
+#else
+	class DrawList implements Public
+#end
 {
-	var list:Array<Float>;
-	var index:Int;
-	var fields:Int;
-	var offsetTransform:Int;
-	var offsetRGB:Int;
-	var offsetAlpha:Int;
-	var flags:Int;
-	var time:Int;
-	var elapsed:Int;
-	var runs:Int;
+	public var list:Array<Float>;
+	public var index:Int;
+	public var fields:Int;
+	public var offsetTransform:Int;
+	public var offsetRGB:Int;
+	public var offsetAlpha:Int;
+	public var flags:Int;
+	public var time:Int;
+	public var elapsed:Int;
+	public var runs:Int;
 
-	function new() 
+	#if haxe3
+		public function new() 
+	#else
+		function new() 
+	#end
 	{
 		list = new Array<Float>();
 		elapsed = 0;
 		runs = 0;
 	}
 
-	function begin(elapsed:Int, useTransforms:Bool, useAlpha:Bool, useTint:Bool, useAdditive:Bool) 
+	#if haxe3
+		public function begin(elapsed:Int, useTransforms:Bool, useAlpha:Bool, useTint:Bool, useAdditive:Bool) 
+	#else
+		function begin(elapsed:Int, useTransforms:Bool, useAlpha:Bool, useTint:Bool, useAdditive:Bool) 
+	#end
 	{
 		#if !flash
 		flags = 0;
@@ -263,7 +281,7 @@ class DrawList implements Public
 		}
 	}
 
-	function end()
+	public function end()
 	{
 		if (list.length > index) 
 		{
