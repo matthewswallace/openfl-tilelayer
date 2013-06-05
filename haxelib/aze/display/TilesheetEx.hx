@@ -1,7 +1,7 @@
 package aze.display;
 
 import flash.display.BitmapData;
-import flash.display.Tilesheet;
+import openfl.display.Tilesheet;
 import flash.geom.Point;
 import flash.geom.Rectangle;
 
