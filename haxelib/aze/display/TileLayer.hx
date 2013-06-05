@@ -1,6 +1,6 @@
 package aze.display;
 
-import browser.geom.Point;
+import flash.geom.Point;
 #if !haxe3
 	import haxe.Public;
 #end
