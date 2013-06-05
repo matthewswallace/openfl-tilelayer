@@ -1,9 +1,6 @@
 package aze.display;
 
 import flash.geom.Point;
-#if flash
-import haxe.Public;
-#end
 import flash.display.Bitmap;
 import flash.display.BitmapData;
 import flash.display.BlendMode;
@@ -172,11 +169,8 @@ class TileLayer extends TileGroup
 /**
  * @private base tile type
  */
-#if haxe3
-	class TileBase
-#else
-	class TileBase implements Public
-#end
+
+class TileBase
 {
 	public var layer:TileLayer;
 	public var parent:TileGroup;
