@@ -19,6 +19,7 @@ using StringTools;
  */
 class TilesheetEx extends Tilesheet
 {
+	public var scale:Float;
 	var defs:Array<String>;
 	var sizes:Array<Rectangle>;
 
@@ -32,10 +33,12 @@ class TilesheetEx extends Tilesheet
 	var bmps:Array<BitmapData>;
 	#end
 
-	public function new(img:BitmapData)
+	public function new(img:BitmapData, textureScale:Float = 1.0)
 	{
 		super(img);
 
+		scale = 1/textureScale;
+		
 		defs = new Array<String>();
 
 		#if haxe3
@@ -100,7 +103,7 @@ class TilesheetEx extends Tilesheet
 		for(fileName in fileNames)
 		{
 			var name = fileName.split("/").pop();
-			var image = nme.Assets.getBitmapData(fileName);
+			var image = openfl.Assets.getBitmapData(fileName);
 			names.push(name);
 			images.push(image);
 		}
