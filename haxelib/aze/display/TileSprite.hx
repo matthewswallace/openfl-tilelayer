@@ -1,11 +1,11 @@
 package aze.display;
 
 import aze.display.TileLayer;
-import nme.geom.Matrix;
-import nme.display.Bitmap;
-import nme.display.DisplayObject;
-import nme.geom.Point;
-import nme.geom.Rectangle;
+import flash.geom.Matrix;
+import flash.display.Bitmap;
+import flash.display.DisplayObject;
+import flash.geom.Point;
+import flash.geom.Rectangle;
 
 /**
  * Static tile for TileLayer

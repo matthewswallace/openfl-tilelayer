@@ -1,9 +1,9 @@
 package aze.display;
 
-import nme.display.BitmapData;
-import nme.display.Tilesheet;
-import nme.geom.Point;
-import nme.geom.Rectangle;
+import flash.display.BitmapData;
+import flash.display.Tilesheet;
+import flash.geom.Point;
+import flash.geom.Rectangle;
 
 using StringTools;
 

@@ -2,15 +2,15 @@ package aze.display;
 
 import browser.geom.Point;
 import haxe.Public;
-import nme.display.Bitmap;
-import nme.display.BitmapData;
-import nme.display.BlendMode;
-import nme.display.DisplayObject;
-import nme.display.Graphics;
-import nme.display.Sprite;
-import nme.geom.Matrix;
-import nme.geom.Rectangle;
-import nme.Lib;
+import flash.display.Bitmap;
+import flash.display.BitmapData;
+import flash.display.BlendMode;
+import flash.display.DisplayObject;
+import flash.display.Graphics;
+import flash.display.Sprite;
+import flash.geom.Matrix;
+import flash.geom.Rectangle;
+import flash.Lib;
 
 /**
  * A little wrapper of NME's Tilesheet rendering (for native platform)

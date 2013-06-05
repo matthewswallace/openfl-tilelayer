@@ -1,9 +1,9 @@
 package aze.display;
 
-import nme.display.BitmapData;
-import nme.geom.Point;
-import nme.geom.Rectangle;
-import nme.Lib;
+import flash.display.BitmapData;
+import flash.geom.Point;
+import flash.geom.Rectangle;
+import flash.Lib;
 
 /**
 parrow spritesheet parser for TileLayer
