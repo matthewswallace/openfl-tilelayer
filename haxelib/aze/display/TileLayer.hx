@@ -1,7 +1,9 @@
 package aze.display;
 
-import browser.geom.Point;
+import flash.geom.Point;
+#if flash
 import haxe.Public;
+#end
 import flash.display.Bitmap;
 import flash.display.BitmapData;
 import flash.display.BlendMode;
