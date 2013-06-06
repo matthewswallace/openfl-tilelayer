@@ -36,7 +36,7 @@ class SparrowTilesheet extends TilesheetEx
 				else 
 					new Rectangle(0, 0, rect.width, rect.height);
 			
-			trace([name, rect.x, rect.y, rect.width, rect.height, size.x, size.y, size.width, size.height]);
+			//trace([name, rect.x, rect.y, rect.width, rect.height, size.x, size.y, size.width, size.height]);
 			
 			#if flash
 			var bmp = new BitmapData(cast size.width, cast size.height, true, 0);
