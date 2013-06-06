@@ -1,10 +1,17 @@
-nme-tilelayer
+**Please note that this project is a work in progress and right now is just a patch job on nme-tilelayers.**
+
+I welcome anyone to fork project and help imporve. I was not the original author of the code so name spaces and current code is pretty much a representation of the previous version. The current project was just to get to a point of compilation and working code with openfl and Haxe 3. I'm 100% sure there are bugs and more work needs to be done.
+
+Also please feel free to improve on the Readme file. I'm sure some of the previous info will become outdated as we work on this.
+
+openfl-tilelayer 
 =============
 
-A lightweight and very optimized wrapper over NME's powerful but lowlevel 'drawTiles' which offers the best rendering performance 
+This project is an openfl version of nme-tilelayer. The point of this project is to offer the same functionality that nme-tilelayer has but make it compatible with Haxe 3 and openfl.
+
+Openfl-tilelayer is lightweight and very optimized wrapper over openfl's powerful but lowlevel 'drawTiles' which offers the best rendering performance 
 (ie. batching) on native platforms.
 
-**See [NME RunnerMark][1] for a sample project using this library.**
 
  - provides a basic display-list, spritesheet animations, mirroring (tile flipping), scale X/Y,
  - includes a Sparrow spritesheet parser, supporting trimming,
