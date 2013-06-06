@@ -191,7 +191,7 @@ class TileBase
 		this.layer = layer;
 	}
 
-	function step(elapsed:Int)
+	public function step(elapsed:Int)
 	{
 	}
 
