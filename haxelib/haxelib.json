@@ -1,13 +1,14 @@
 {
   "name": "tilelayer",
-  "url": "http://github.com/elsassph/nme-tilelayer",
+  "url": "http://github.com/matthewswallace/openfl-tilelayer",
   "license": "MIT",
-  "tags": ["nme"],
-  "description": "Lightweight wrapper over NME's powerful but lowlevel 'drawTiles', with bitmap-based fallback for Flash/JS. Includes a Sparrow spritesheets parser supporting animations and trimming.",
-  "version": "0.3.1",
-  "releasenote": "API changes: Tile* objects creation require the layer reference, SparrowTilesheet has a textureScale option",
-  "contributors": ["elsassph"],
-  "dependencies": {
-
+  "tags": ["openfl","nme"],
+  "description": "Lightweight wrapper over OpenFL's powerful but lowlevel 'drawTiles', with bitmap-based fallback for Flash/JS. Includes a Sparrow spritesheets parser supporting animations and trimming.",
+  "version": "0.0.1",
+  "releasenote": "This is the first iteration of porting nme-tilelayer to work with Haxe 3 and Openfl",
+  "contributors": ["elsassph", "matthewswallace"],
+  "dependencies": 
+  {
+    "openfl":""  
   }
 }
