@@ -86,11 +86,13 @@ class TileLayer extends TileGroup
 			var child = group.children[i];
 			if (child.animated) child.step(elapsed);
 
+			#if !flash
+			if (!child.visible) continue;
+			#end
+			
 			#if (flash||js)
 			var group:TileGroup = Std.is(child, TileGroup) ? cast child : null;
 			#else
-			if (!child.visible) 
-				continue;
 			var group:TileGroup = cast child;
 			#end
 
