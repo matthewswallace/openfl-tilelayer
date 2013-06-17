@@ -1,9 +1,3 @@
-**Please note that this project is a work in progress and right now is just a patch job on nme-tilelayers.**
-
-I welcome anyone to fork project and help imporve. I was not the original author of the code so name spaces and current code is pretty much a representation of the previous version. The current project was just to get to a point of compilation and working code with openfl and Haxe 3. I'm 100% sure there are bugs and more work needs to be done.
-
-Also please feel free to improve on the Readme file. I'm sure some of the previous info will become outdated as we work on this.
-
 openfl-tilelayer 
 =============
 
@@ -16,7 +10,7 @@ Openfl-tilelayer is lightweight and very optimized wrapper over openfl's powerfu
  - provides a basic display-list, spritesheet animations, mirroring (tile flipping), scale X/Y,
  - includes a Sparrow spritesheet parser, supporting trimming,
  - uses (and caches computations of) the new drawTiles' transform2x2 for native platforms,
- - uses Bitmaps for Flash & HTML5 target rendering,
+ - uses Bitmaps for Flash target rendering,
  - very optimized memory management, near-zero garbage collection.
 
 **Warning:** TileLayer is a "batching" class so it should be used to display "many elements" - that means you should 
