@@ -128,8 +128,8 @@ class TileLayer extends TileGroup
 					var off:Point = sprite.offset;					
 					if (offsetTransform > 0) {
 						var t = sprite.transform;
-						list[index] = sprite.x - off.x * t[0] - off.y * t[1] + gx;
-						list[index+1] = sprite.y - off.x * t[2] - off.y * t[3] + gy;
+						list[index] = sprite.x - off.x * t[0] - off.y * t[2] + gx;
+						list[index+1] = sprite.y - off.x * t[1] - off.y * t[3] + gy;
 						list[index+offsetTransform] = t[0];
 						list[index+offsetTransform+1] = t[1];
 						list[index+offsetTransform+2] = t[2];
