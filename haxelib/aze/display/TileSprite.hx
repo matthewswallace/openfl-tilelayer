@@ -177,8 +177,8 @@ class TileSprite extends TileBase
 				var cos = Math.cos(rotation);
 				var sin = Math.sin(rotation);
 				_transform[0] = dirX * cos * sx;
-				_transform[1] = dirY * sin * sy;
-				_transform[2] = -dirX * sin * sx;
+				_transform[1] = dirX * sin * sx;
+				_transform[2] = -dirY * sin * sy;
 				_transform[3] = dirY * cos * sy;
 			}
 			else {
@@ -234,7 +234,8 @@ class TileSprite extends TileBase
 	inline function get_offset():Point { return _offset; }
 	function set_offset(value:Point):Point
 	{
-		_offset = new Point(value.x / layer.tilesheet.scale, value.y / layer.tilesheet.scale);
+		if (value == null) _offset = null;
+		else _offset = new Point(value.x / layer.tilesheet.scale, value.y / layer.tilesheet.scale);
 		return _offset;
 	}
 }
