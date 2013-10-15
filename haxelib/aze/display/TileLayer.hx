@@ -90,7 +90,7 @@ class TileLayer extends TileGroup
 			if (!child.visible) continue;
 			#end
 			
-			#if (flash||js)
+			#if (flash||js||neko)
 			var group:TileGroup = Std.is(child, TileGroup) ? cast child : null;
 			#else
 			var group:TileGroup = cast child;
