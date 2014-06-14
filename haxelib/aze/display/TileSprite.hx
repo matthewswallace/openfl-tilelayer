@@ -202,6 +202,7 @@ class TileSprite extends TileBase
 			var tileHeight = height / 2;
 			var m = _matrix;
 			m.identity();
+			if (offset != null) m.translate(-offset.x, -offset.y);
 			if (layer.useTransforms) {
 				m.scale(scaleX * layer.tilesheet.scale, scaleY * layer.tilesheet.scale);
 				if (mirror != 0) {
