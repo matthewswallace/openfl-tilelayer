@@ -90,7 +90,7 @@ class TileLayer extends TileGroup
 			if (!child.visible) continue;
 			#end
 			
-			#if (flash||js)
+			#if (flash || js || neko)
 			var group:TileGroup = Std.is(child, TileGroup) ? cast child : null;
 			#else
 			var group:TileGroup = cast child;
@@ -132,13 +132,8 @@ class TileLayer extends TileGroup
 						list[index] = sprite.x - off.x * t[0] - off.y * t[1] + gx;
 						list[index+1] = sprite.y - off.x * t[2] - off.y * t[3] + gy;
 						list[index+offsetTransform] = t[0];
-						#if js
 						list[index+offsetTransform+1] = t[2];
 						list[index+offsetTransform+2] = t[1];
-						#else
-						list[index+offsetTransform+1] = t[1];
-						list[index+offsetTransform+2] = t[2];
-						#end
 						list[index+offsetTransform+3] = t[3];
 					}
 					else {
@@ -152,13 +147,8 @@ class TileLayer extends TileGroup
 					if (offsetTransform > 0) {
 						var t = sprite.transform;
 						list[index+offsetTransform] = t[0];
-						#if js
 						list[index+offsetTransform+1] = t[2];
 						list[index+offsetTransform+2] = t[1];
-						#else
-						list[index+offsetTransform+1] = t[1];
-						list[index+offsetTransform+2] = t[2];
-						#end
 						list[index+offsetTransform+3] = t[3];
 					}
 				}

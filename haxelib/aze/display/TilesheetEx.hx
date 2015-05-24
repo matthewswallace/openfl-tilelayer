@@ -77,9 +77,13 @@ class TilesheetEx extends Tilesheet
 				indices.push(i);
 		}
 		anims.set(name, indices);
+
+		#if debug
 		if (indices.length == 0) {
 			trace("Tilesheet has no tile with name \"" + name + "\"");
 		}
+		#end 
+		
 		return indices;
 	}
 
