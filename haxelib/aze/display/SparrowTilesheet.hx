@@ -1,9 +1,9 @@
 package aze.display;
 
-import flash.display.BitmapData;
-import flash.geom.Point;
-import flash.geom.Rectangle;
-import flash.Lib;
+import openfl.display.BitmapData;
+import openfl.geom.Point;
+import openfl.geom.Rectangle;
+import openfl.Lib;
 
 /**
 parrow spritesheet parser for TileLayer
@@ -35,8 +35,6 @@ class SparrowTilesheet extends TilesheetEx
 						Std.parseInt(texture.att.frameWidth), Std.parseInt(texture.att.frameHeight));
 				else 
 					new Rectangle(0, 0, rect.width, rect.height);
-			
-			//trace([name, rect.x, rect.y, rect.width, rect.height, size.x, size.y, size.width, size.height]);
 			
 			#if flash
 			var bmp = new BitmapData(cast size.width, cast size.height, true, 0);

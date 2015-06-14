@@ -3,8 +3,9 @@ package aze.display;
 import aze.display.TileLayer;
 import aze.display.TileGroup;
 import aze.display.TileSprite;
-import flash.display.DisplayObject;
-import flash.display.Sprite;
+
+import openfl.display.DisplayObject;
+import openfl.display.Sprite;
 
 /**
  * Tiles container for TileLayer

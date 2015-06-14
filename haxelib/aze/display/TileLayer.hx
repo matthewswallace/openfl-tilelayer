@@ -1,15 +1,15 @@
 package aze.display;
 
-import flash.geom.Point;
-import flash.display.Bitmap;
-import flash.display.BitmapData;
-import flash.display.BlendMode;
-import flash.display.DisplayObject;
-import flash.display.Graphics;
-import flash.display.Sprite;
-import flash.geom.Matrix;
-import flash.geom.Rectangle;
-import flash.Lib;
+import openfl.display.Bitmap;
+import openfl.display.BitmapData;
+import openfl.display.BlendMode;
+import openfl.display.DisplayObject;
+import openfl.display.Graphics;
+import openfl.display.Sprite;
+import openfl.geom.Matrix;
+import openfl.geom.Point;
+import openfl.geom.Rectangle;
+import openfl.Lib;
 
 /**
  * A little wrapper of NME's Tilesheet rendering (for native platform)
@@ -79,7 +79,7 @@ class TileLayer extends TileGroup
 		gx += group.x;
 		gy += group.y;
 		#end
-
+		
 		var n = group.numChildren;
 		for(i in 0...n)
 		{
@@ -90,7 +90,11 @@ class TileLayer extends TileGroup
 			if (!child.visible) continue;
 			#end
 			
+			#if (flash || js || neko)
 			var group:TileGroup = Std.is(child, TileGroup) ? cast child : null;
+			#else
+			var group:TileGroup = cast child;
+			#end
 
 			if (group != null) 
 			{
@@ -101,10 +105,11 @@ class TileLayer extends TileGroup
 				var sprite:TileSprite = cast child;
 
 				#if flash
-				if (sprite.visible && sprite.alpha > 0.0)
+				if (sprite.parent.visible && sprite.visible && sprite.alpha > 0.0)
 				{
 					var m = sprite.bmp.transform.matrix;
 					m.identity();
+					if (sprite.offset != null) m.translate(-sprite.offset.x, -sprite.offset.y);
 					m.concat(sprite.matrix);
 					m.translate(sprite.x, sprite.y);
 					sprite.bmp.transform.matrix = m;
@@ -118,17 +123,17 @@ class TileLayer extends TileGroup
 				#else
 				if (sprite.alpha <= 0.0) continue;
 				list[index+2] = sprite.indice;
-
+				
 				if (sprite.offset != null) 
 				{
-					var off:Point = sprite.offset;					
+					var off:Point = sprite.offset;
 					if (offsetTransform > 0) {
 						var t = sprite.transform;
-						list[index] = sprite.x - off.x * t[0] - off.y * t[2] + gx;
-						list[index+1] = sprite.y - off.x * t[1] - off.y * t[3] + gy;
+						list[index] = sprite.x - off.x * t[0] - off.y * t[1] + gx;
+						list[index+1] = sprite.y - off.x * t[2] - off.y * t[3] + gy;
 						list[index+offsetTransform] = t[0];
-						list[index+offsetTransform+1] = t[1];
-						list[index+offsetTransform+2] = t[2];
+						list[index+offsetTransform+1] = t[2];
+						list[index+offsetTransform+2] = t[1];
 						list[index+offsetTransform+3] = t[3];
 					}
 					else {
@@ -142,12 +147,12 @@ class TileLayer extends TileGroup
 					if (offsetTransform > 0) {
 						var t = sprite.transform;
 						list[index+offsetTransform] = t[0];
-						list[index+offsetTransform+1] = t[1];
-						list[index+offsetTransform+2] = t[2];
+						list[index+offsetTransform+1] = t[2];
+						list[index+offsetTransform+2] = t[1];
 						list[index+offsetTransform+3] = t[3];
 					}
 				}
-
+				
 				if (offsetRGB > 0) {
 					list[index+offsetRGB] = sprite.r;
 					list[index+offsetRGB+1] = sprite.g;
@@ -167,7 +172,6 @@ class TileLayer extends TileGroup
 /**
  * @private base tile type
  */
-
 class TileBase
 {
 	public var layer:TileLayer;
@@ -177,14 +181,14 @@ class TileBase
 	public var animated:Bool;
 	public var visible:Bool;
 
-	function new(layer:TileLayer)
+	public function new(layer:TileLayer)
 	{
 		this.layer = layer;
 		x = y = 0.0;
 		visible = true;
 	}
 
-	function init(layer:TileLayer):Void
+	public function init(layer:TileLayer):Void
 	{
 		this.layer = layer;
 	}
@@ -194,7 +198,7 @@ class TileBase
 	}
 
 	#if flash
-	function getView():DisplayObject { return null; }
+	public function getView():DisplayObject { return null; }
 	#end
 }
 
@@ -202,11 +206,7 @@ class TileBase
 /**
  * @private render buffer
  */
-#if haxe3
-	class DrawList
-#else
-	class DrawList implements Public
-#end
+private class DrawList
 {
 	public var list:Array<Float>;
 	public var index:Int;
@@ -219,22 +219,14 @@ class TileBase
 	public var elapsed:Int;
 	public var runs:Int;
 
-	#if haxe3
-		public function new() 
-	#else
-		function new() 
-	#end
+	public function new() 
 	{
 		list = new Array<Float>();
 		elapsed = 0;
 		runs = 0;
 	}
 
-	#if haxe3
-		public function begin(elapsed:Int, useTransforms:Bool, useAlpha:Bool, useTint:Bool, useAdditive:Bool) 
-	#else
-		function begin(elapsed:Int, useTransforms:Bool, useAlpha:Bool, useTint:Bool, useAdditive:Bool) 
-	#end
+	public function begin(elapsed:Int, useTransforms:Bool, useAlpha:Bool, useTint:Bool, useAdditive:Bool) 
 	{
 		#if !flash
 		flags = 0;
