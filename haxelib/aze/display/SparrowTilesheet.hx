@@ -15,7 +15,14 @@ parrow spritesheet parser for TileLayer
 class SparrowTilesheet extends TilesheetEx
 {
 
-	public function new(img:BitmapData, xml:String, textureScale:Float = 1.0) 
+	/**
+	 * 
+	 * @param	img texture atlas
+	 * @param	xml
+	 * @param	textureScale
+	 * @param	useCenterPoint default value = true, false means that the center point will be top left
+	 */
+	public function new(img:BitmapData, xml:String, textureScale:Float = 1.0, useCenterPoint:Bool = true) 
 	{
 		super(img, textureScale);
 		
@@ -43,7 +50,7 @@ class SparrowTilesheet extends TilesheetEx
 			bmp.copyPixels(img, rect, ins);
 			addDefinition(name, size, bmp);
 			#else
-			var center = new Point((size.x + size.width / 2), (size.y + size.height / 2));
+			var center = useCenterPoint ? new Point((size.x + size.width / 2), (size.y + size.height / 2)) : null;
 			addDefinition(name, size, rect, center);
 			#end
 		}
