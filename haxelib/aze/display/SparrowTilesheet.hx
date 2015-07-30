@@ -50,7 +50,7 @@ class SparrowTilesheet extends TilesheetEx
 			bmp.copyPixels(img, rect, ins);
 			addDefinition(name, size, bmp);
 			#else
-			var center = useCenterPoint ? new Point((size.x + size.width / 2), (size.y + size.height / 2)) : null;
+			var center = useCenterPoint ? new Point((size.x + size.width / 2), (size.y + size.height / 2)) : (texture.has.frameX ? new Point(size.x, size.y) : null);
 			addDefinition(name, size, rect, center);
 			#end
 		}
