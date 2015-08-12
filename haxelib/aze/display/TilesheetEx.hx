@@ -100,7 +100,14 @@ class TilesheetEx extends Tilesheet
 	}
 	#end
 
-	static public function createFromAssets(fileNames:Array<String>, padding:Int=0, spacing:Int=0)
+	/**
+	 * 
+	 * @param	fileNames
+	 * @param	padding
+	 * @param	spacing
+	 * @param	useCenterPoint default value = true, false means that the center point will be top left
+	 */
+	static public function createFromAssets(fileNames:Array<String>, padding:Int=0, spacing:Int=0, useCenterPoint:Bool = true) 
 	{
 		var names:Array<String> = [];
 		var images:Array<BitmapData> = [];
@@ -111,10 +118,18 @@ class TilesheetEx extends Tilesheet
 			names.push(name);
 			images.push(image);
 		}
-		return createFromImages(names, images, padding, spacing);
+		return createFromImages(names, images, padding, spacing, useCenterPoint);
 	}
 
-	static public function createFromImages(names:Array<String>, images:Array<BitmapData>, padding:Int=0, spacing:Int=0)
+	/**
+	 * 
+	 * @param	names
+	 * @param	images
+	 * @param	padding
+	 * @param	spacing
+	 * @param	useCenterPoint default value = true, false means that the center point will be top left
+	 */
+	static public function createFromImages(names:Array<String>, images:Array<BitmapData>, padding:Int=0, spacing:Int=0, useCenterPoint:Bool = true) 
 	{
 		var width = 0;
 		var height = padding;
@@ -138,7 +153,7 @@ class TilesheetEx extends Tilesheet
 			sheet.addDefinition(names[i], image.rect, image);
 			#else
 			var rect = new Rectangle(padding, pos.y, image.width, image.height);
-			var center = new Point(image.width/2, image.height/2);
+			var center = useCenterPoint ? new Point(image.width/2, image.height/2) : null;
 			sheet.addDefinition(names[i], image.rect, rect, center);
 			#end
 			pos.y += image.height + spacing;
