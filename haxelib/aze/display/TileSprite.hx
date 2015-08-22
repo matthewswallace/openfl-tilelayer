@@ -57,8 +57,7 @@ class TileSprite extends TileBase
 	override public function init(layer:TileLayer):Void
 	{
 		this.layer = layer;
-		var indices = layer.tilesheet.getAnim(tile);
-		indice = indices[0];
+		indice = layer.tilesheet.getIndex(tile);
 		size = layer.tilesheet.getSize(indice);
 	}
 

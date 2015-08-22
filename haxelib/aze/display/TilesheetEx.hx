@@ -86,6 +86,19 @@ class TilesheetEx extends Tilesheet
 		
 		return indices;
 	}
+	
+	public function getIndex(name:String):Int
+	{
+		for (i in 0...defs.length)
+		{
+			if (defs[i] == name) 
+				return i;
+		}
+		#if debug
+		trace("Tilesheet has no tile with name \"" + name + "\"");
+		#end 
+		return -1;
+	}
 
 	inline public function getSize(indice:Int):Rectangle
 	{
