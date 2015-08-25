@@ -1,9 +1,10 @@
 package aze.display;
 
-import flash.display.BitmapData;
+import openfl.Assets;
+import openfl.display.BitmapData;
 import openfl.display.Tilesheet;
-import flash.geom.Point;
-import flash.geom.Rectangle;
+import openfl.geom.Point;
+import openfl.geom.Rectangle;
 
 using StringTools;
 
@@ -22,13 +23,8 @@ class TilesheetEx extends Tilesheet
 	public var scale:Float;
 	var defs:Array<String>;
 	var sizes:Array<Rectangle>;
-
-	#if haxe3
-		var anims:Map<String,Array<Int>>;
-	#else
-		var anims:Hash<Array<Int>>;
-	#end
-
+	var anims:Map<String, Array<Int>>;
+	var tiles:Map<String, Int>;
 	#if flash
 	var bmps:Array<BitmapData>;
 	#end
@@ -36,17 +32,11 @@ class TilesheetEx extends Tilesheet
 	public function new(img:BitmapData, textureScale:Float = 1.0)
 	{
 		super(img);
-
-		scale = 1/textureScale;
 		
+		scale = 1/textureScale;
 		defs = new Array<String>();
-
-		#if haxe3
-			anims = new Map < String, Array<Int> > ();
-		#else
-			anims = new Hash <Array<Int> > ();
-		#end
-
+		anims = new Map<String, Array<Int>>();
+		tiles = new Map<String, Int>();
 		sizes = new Array<Rectangle>();
 		#if flash
 		bmps = new Array<BitmapData>();
@@ -65,6 +55,15 @@ class TilesheetEx extends Tilesheet
 	{
 		defs.push(name);
 		sizes.push(size);
+		if (scale != 1.0)
+		{
+			rect.x /= scale;
+			rect.y /= scale;
+			rect.width /= scale;
+			rect.height /= scale;
+			center.x /= scale;
+			center.y /= scale;
+		}
 		addTileRect(rect, center);
 	}
 	#end
@@ -80,7 +79,29 @@ class TilesheetEx extends Tilesheet
 				indices.push(i);
 		}
 		anims.set(name, indices);
+
+		#if debug
+		if (indices.length == 0) {
+			trace("Tilesheet has no tile with name \"" + name + "\"");
+		}
+		#end 
+		
 		return indices;
+	}
+	
+	public function getIndex(name:String):Int
+	{
+		if (tiles.exists(name))
+			return tiles.get(name);
+		var index:Int = defs.indexOf(name);
+		tiles.set(name, index);
+		
+		#if debug
+		if(index == -1)
+			trace("Tilesheet has no tile with name \"" + name + "\"");
+		#end 
+		
+		return index;
 	}
 
 	inline public function getSize(indice:Int):Rectangle
@@ -96,21 +117,36 @@ class TilesheetEx extends Tilesheet
 	}
 	#end
 
-	static public function createFromAssets(fileNames:Array<String>, padding:Int=0, spacing:Int=0)
+	/**
+	 * 
+	 * @param	fileNames
+	 * @param	padding
+	 * @param	spacing
+	 * @param	useCenterPoint default value = true, false means that the center point will be top left
+	 */
+	static public function createFromAssets(fileNames:Array<String>, padding:Int=0, spacing:Int=0, useCenterPoint:Bool = true) 
 	{
 		var names:Array<String> = [];
 		var images:Array<BitmapData> = [];
 		for(fileName in fileNames)
 		{
 			var name = fileName.split("/").pop();
-			var image = openfl.Assets.getBitmapData(fileName);
+			var image = Assets.getBitmapData(fileName);
 			names.push(name);
 			images.push(image);
 		}
-		return createFromImages(names, images, padding, spacing);
+		return createFromImages(names, images, padding, spacing, useCenterPoint);
 	}
 
-	static public function createFromImages(names:Array<String>, images:Array<BitmapData>, padding:Int=0, spacing:Int=0)
+	/**
+	 * 
+	 * @param	names
+	 * @param	images
+	 * @param	padding
+	 * @param	spacing
+	 * @param	useCenterPoint default value = true, false means that the center point will be top left
+	 */
+	static public function createFromImages(names:Array<String>, images:Array<BitmapData>, padding:Int=0, spacing:Int=0, useCenterPoint:Bool = true) 
 	{
 		var width = 0;
 		var height = padding;
@@ -134,7 +170,7 @@ class TilesheetEx extends Tilesheet
 			sheet.addDefinition(names[i], image.rect, image);
 			#else
 			var rect = new Rectangle(padding, pos.y, image.width, image.height);
-			var center = new Point(image.width/2, image.height/2);
+			var center = useCenterPoint ? new Point(image.width/2, image.height/2) : null;
 			sheet.addDefinition(names[i], image.rect, rect, center);
 			#end
 			pos.y += image.height + spacing;
@@ -149,3 +185,5 @@ class TilesheetEx extends Tilesheet
 		return p;
 	}
 }
+
+

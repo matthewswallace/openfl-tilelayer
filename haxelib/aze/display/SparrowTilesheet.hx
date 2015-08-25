@@ -1,9 +1,9 @@
 package aze.display;
 
-import flash.display.BitmapData;
-import flash.geom.Point;
-import flash.geom.Rectangle;
-import flash.Lib;
+import openfl.display.BitmapData;
+import openfl.geom.Point;
+import openfl.geom.Rectangle;
+import openfl.Lib;
 
 /**
 parrow spritesheet parser for TileLayer
@@ -15,7 +15,14 @@ parrow spritesheet parser for TileLayer
 class SparrowTilesheet extends TilesheetEx
 {
 
-	public function new(img:BitmapData, xml:String, textureScale:Float = 1.0) 
+	/**
+	 * 
+	 * @param	img texture atlas
+	 * @param	xml
+	 * @param	textureScale
+	 * @param	useCenterPoint default value = true, false means that the center point will be top left
+	 */
+	public function new(img:BitmapData, xml:String, textureScale:Float = 1.0, useCenterPoint:Bool = true) 
 	{
 		super(img, textureScale);
 		
@@ -36,8 +43,6 @@ class SparrowTilesheet extends TilesheetEx
 				else 
 					new Rectangle(0, 0, rect.width, rect.height);
 			
-			//trace([name, rect.x, rect.y, rect.width, rect.height, size.x, size.y, size.width, size.height]);
-			
 			#if flash
 			var bmp = new BitmapData(cast size.width, cast size.height, true, 0);
 			ins.x = -size.left;
@@ -45,7 +50,10 @@ class SparrowTilesheet extends TilesheetEx
 			bmp.copyPixels(img, rect, ins);
 			addDefinition(name, size, bmp);
 			#else
-			var center = new Point((size.x + size.width / 2), (size.y + size.height / 2));
+			var center = if (useCenterPoint)
+							new Point((size.x + size.width / 2), (size.y + size.height / 2)) 
+						else
+							texture.has.frameX ? new Point(size.x, size.y) : null;
 			addDefinition(name, size, rect, center);
 			#end
 		}

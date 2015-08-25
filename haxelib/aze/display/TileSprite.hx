@@ -1,11 +1,12 @@
 package aze.display;
 
 import aze.display.TileLayer;
-import flash.geom.Matrix;
-import flash.display.Bitmap;
-import flash.display.DisplayObject;
-import flash.geom.Point;
-import flash.geom.Rectangle;
+
+import openfl.geom.Matrix;
+import openfl.display.Bitmap;
+import openfl.display.DisplayObject;
+import openfl.geom.Point;
+import openfl.geom.Rectangle;
 
 /**
  * Static tile for TileLayer
@@ -56,8 +57,7 @@ class TileSprite extends TileBase
 	override public function init(layer:TileLayer):Void
 	{
 		this.layer = layer;
-		var indices = layer.tilesheet.getAnim(tile);
-		indice = indices[0];
+		indice = layer.tilesheet.getIndex(tile);
 		size = layer.tilesheet.getSize(indice);
 	}
 
@@ -177,8 +177,8 @@ class TileSprite extends TileBase
 				var cos = Math.cos(rotation);
 				var sin = Math.sin(rotation);
 				_transform[0] = dirX * cos * sx;
-				_transform[1] = dirX * sin * sx;
-				_transform[2] = -dirY * sin * sy;
+				_transform[1] = -dirY * sin * sy;
+				_transform[2] = dirX * sin * sx;
 				_transform[3] = dirY * cos * sy;
 			}
 			else {

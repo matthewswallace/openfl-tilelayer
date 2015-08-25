@@ -4,7 +4,7 @@
   "license": "MIT",
   "tags": ["openfl","nme"],
   "description": "Lightweight wrapper over OpenFL's powerful but lowlevel 'drawTiles', with bitmap-based fallback for Flash. Includes a Sparrow spritesheets parser supporting animations and trimming.",
-  "version": "0.1",
+  "version": "0.2.0",
   "releasenote": "In sync with nme-tilelayer, addition of a test project",
   "contributors": ["elsassph", "matthewswallace"],
   "dependencies": 
