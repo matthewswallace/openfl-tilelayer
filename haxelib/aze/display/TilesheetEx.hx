@@ -24,6 +24,7 @@ class TilesheetEx extends Tilesheet
 	var defs:Array<String>;
 	var sizes:Array<Rectangle>;
 	var anims:Map<String, Array<Int>>;
+	var tiles:Map<String, Int>;
 	#if flash
 	var bmps:Array<BitmapData>;
 	#end
@@ -35,6 +36,7 @@ class TilesheetEx extends Tilesheet
 		scale = 1/textureScale;
 		defs = new Array<String>();
 		anims = new Map<String, Array<Int>>();
+		tiles = new Map<String, Int>();
 		sizes = new Array<Rectangle>();
 		#if flash
 		bmps = new Array<BitmapData>();
@@ -89,10 +91,10 @@ class TilesheetEx extends Tilesheet
 	
 	public function getIndex(name:String):Int
 	{
-		if (anims.exists(name))
-			return anims.get(name)[0];
+		if (tiles.exists(name))
+			return tiles.get(name);
 		var index:Int = defs.indexOf(name);
-		anims.set(name, [index]);
+		tiles.set(name, index);
 		
 		#if debug
 		if(index == -1)
